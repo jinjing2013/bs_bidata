@@ -302,7 +302,6 @@ select  a.ccuscode
 --      ,a.inum_person_ad
       ,date_add(b.ddate, interval round(a.mon_1/a.avg_inum_person*30) day) as next_ddate
       ,case when round(c.mon_diff / a.ct * a.avg_inum_person / d.inum_unit_person) = 0 then d.inum_unit_person
-            when d.inum_unit_person is null then round(c.mon_diff / a.ct * a.avg_inum_person)
             else round(c.mon_diff / a.ct * a.avg_inum_person / d.inum_unit_person) * d.inum_unit_person end as next_inum_person
       ,a.mon_1/a.avg_inum_person as zq_mon
   from pdm.yj_outdepot_forecast_lv2_pre a
