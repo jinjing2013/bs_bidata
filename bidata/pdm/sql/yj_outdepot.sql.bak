@@ -288,7 +288,6 @@ select 'u8'
 
 -- 修改表字段名称
 alter table pdm.yj_outdepot_fx change tbilldate tbilldate date;
-alter table pdm.yj_outdepot_fx change status status varchar(20);
 alter table pdm.yj_outdepot_fx change avg_inum_person avg_inum_person decimal(10,2);
 alter table pdm.yj_outdepot_fx change zq_mon zq_mon decimal(10,2);
 
