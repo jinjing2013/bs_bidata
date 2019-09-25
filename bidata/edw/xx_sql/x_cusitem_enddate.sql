@@ -160,6 +160,7 @@ select finnal_ccuscode as ccuscode
  group by finnal_ccuscode,item_code
 ;
 
+-- 新增客户清洗
 truncate table edw.x_cusitem_enddate;
 insert into edw.x_cusitem_enddate
 select d.sales_dept
@@ -169,6 +170,8 @@ select d.sales_dept
       ,a.city
       ,a.ccuscode
       ,a.ccusname
+      ,case when e.ccuscode is null then '请核查' else e.bi_cuscode end as bi_cuscode
+      ,case when e.ccuscode is null then '请核查' else e.bi_cusname end as bi_cusname
       ,c.level_one
       ,c.level_two
       ,a.item_code
@@ -185,6 +188,8 @@ select d.sales_dept
    and a.item_code = b.item_code
   left join (select * from edw.map_inventory group by item_code) c
     on a.item_code = c.item_code
+  left join (select * from edw.dic_customer group by ccuscode) e
+    on a.ccuscode = e.ccuscode
   left join (select * from edw.map_customer group by bi_cuscode) d
-    on a.ccuscode = d.bi_cuscode
+    on e.bi_cuscode = d.bi_cuscode
 ;
